@@ -1,29 +1,7 @@
 /**
  * goal is to have as little global code as possible 
  */
- 
-// for (let i = 0 ; i < rows; i++){
-//   board.push([]);
-//   const divRow = document.createElement('div');
-//   divRow.classList.add("row");
-//   htmlBoard.appendChild(divRow);
-//   for(let j = 0; j < cols; j++){
 
-//     board[i][j] = Cell();
-//     const button = document.createElement('button');
-
-//     button.setAttribute("row", i);
-//     button.setAttribute("col", j);
-//     button.textContent = board[i][j].getValue();
-
-//     button.addEventListener("click", (e) => {
-//       let row = e.target.getAttribute("row");
-//       let col = e.target.getAttribute("col");
-//     });
-
-//     divRow.appendChild(button);
-//   }
-// }
 
 function GameBoard() {
     const rows = 3;
@@ -155,9 +133,6 @@ function ScreenController() {
       divRow.appendChild(button);
     }
   }
-
-
-
 }
 
 

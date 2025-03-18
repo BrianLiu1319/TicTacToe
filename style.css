@@ -1,0 +1,31 @@
+.container{
+    display: flex;
+}
+
+button{
+	background: blue;
+	color: inherit;
+	padding: 10px;
+    border: none;
+}
+
+div {
+    padding : 0px;
+    margin: 0px;
+}
+
+button[row="0"] {
+    border-bottom: solid black;
+}
+
+button[row="1"] {
+    border-bottom: solid black;
+}
+
+button[col="0"] {
+    border-right: solid black;
+}
+
+button[col="1"] {
+    border-right: solid black;
+}
