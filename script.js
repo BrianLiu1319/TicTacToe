@@ -44,6 +44,7 @@ function GameBoard() {
       if (board[row][col] != 0){
         board[row][col] = player;
       }
+      console.log(board);
     }
 
     const printBoard = () => {
@@ -105,7 +106,9 @@ function GamePlay() {
   }
 
   const getBoard = () => board;
-  const playRound = () => {
+
+  const playRound = (row, col, player) => {
+    board.placeMark(row, col, player);
     swapPlayer();
   }
 
@@ -143,17 +146,16 @@ function ScreenController() {
       button.addEventListener("click", (e) => {
         let row = e.target.getAttribute("row");
         let col = e.target.getAttribute("col");
-        let mark = game.getActivePlayer().mark;
+        let player = game.getActivePlayer();
 
-        game.playRound(row,col, mark);
-        button.textContent = game.getActivePlayer().mark;
+        game.playRound(row,col,player);
+        button.textContent = player.mark;
       });
 
       divRow.appendChild(button);
     }
   }
 
-  game.playRound();
 
 
 }
