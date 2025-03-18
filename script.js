@@ -1,7 +1,29 @@
 /**
  * goal is to have as little global code as possible 
  */
+ 
+// for (let i = 0 ; i < rows; i++){
+//   board.push([]);
+//   const divRow = document.createElement('div');
+//   divRow.classList.add("row");
+//   htmlBoard.appendChild(divRow);
+//   for(let j = 0; j < cols; j++){
 
+//     board[i][j] = Cell();
+//     const button = document.createElement('button');
+
+//     button.setAttribute("row", i);
+//     button.setAttribute("col", j);
+//     button.textContent = board[i][j].getValue();
+
+//     button.addEventListener("click", (e) => {
+//       let row = e.target.getAttribute("row");
+//       let col = e.target.getAttribute("col");
+//     });
+
+//     divRow.appendChild(button);
+//   }
+// }
 
 function GameBoard() {
     const rows = 3;
@@ -57,7 +79,6 @@ function Cell(){
 }
 
 function GamePlay() {
-
   const player1 = {
     name: "player1",
     mark: "x"
@@ -81,27 +102,61 @@ function GamePlay() {
       activePlayer = players[0];
     }
 
-    console.log(`It is ${activePlayer.name}'s turn`)
   }
 
-  let row = 1;
-  let col = 1;
-
-  // place mark
-  const playRound = (row, col) => {
-    console.log(`placing ${getActivePlayer().name}'s token in ${row} ${col}`);
-    board.placeMark(row, col, getActivePlayer().mark);
+  const getBoard = () => board;
+  const playRound = () => {
+    swapPlayer();
   }
 
-  playRound(row, col);
   // print board
-  board.printBoard();
   // check for winner
   // swap player
   swapPlayer();
 
+  return {playRound,
+    swapPlayer,
+    getActivePlayer,
+    getBoard
+  };
+}
+
+function ScreenController() {
+  const game = GamePlay();
+  const htmlBoard = document.getElementById("board");
+
+  let rows = 3;
+  let cols = 3;
+
+
+  for (let i = 0 ; i < rows; i++){
+    const divRow = document.createElement('div');
+    divRow.classList.add("row");
+    htmlBoard.appendChild(divRow);
+    for(let j = 0; j < cols; j++){
+
+      const button = document.createElement('button');
+
+      button.setAttribute("row", i);
+      button.setAttribute("col", j);
+
+      button.addEventListener("click", (e) => {
+        let row = e.target.getAttribute("row");
+        let col = e.target.getAttribute("col");
+        let mark = game.getActivePlayer().mark;
+
+        game.playRound(row,col, mark);
+        button.textContent = game.getActivePlayer().mark;
+      });
+
+      divRow.appendChild(button);
+    }
+  }
+
+  game.playRound();
 
 
 }
 
-GamePlay();
+
+ScreenController();
