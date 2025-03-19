@@ -16,10 +16,13 @@ function GameBoard() {
   }
 
   const placeMark = (row, col, player) => {
-    if (board[row][col] != 0) {
-      board[row][col] = player;
-    }
-    console.log(board);
+    board[row][col].addMark(player);
+    printBoard();
+  };
+
+  const checkMark = (row, col) => {
+    console.log(board[row][col])
+    return board[row][col];
   };
 
   const printBoard = () => {
@@ -36,7 +39,7 @@ function GameBoard() {
 
   const getBoard = () => board;
 
-  return { printBoard, placeMark, getBoard };
+  return { printBoard, placeMark, getBoard, checkMark};
 }
 
 function Cell() {
@@ -44,6 +47,7 @@ function Cell() {
 
   const addMark = (player) => {
     value = player;
+    console.log(value);
   };
 
   const getValue = () => value;
@@ -80,9 +84,14 @@ function GamePlay() {
   const getBoard = () => board;
 
   const playRound = (row, col, player) => {
-    board.placeMark(row, col, player);
-    swapPlayer();
-    checkWin();
+
+    if(board.checkMark(row, col).getValue() == 0){
+      board.placeMark(row, col, player);
+      swapPlayer();
+      checkWin();
+    }
+
+
   };
 
   const checkWin = () => {
@@ -150,7 +159,6 @@ function ScreenController() {
         let player = game.getActivePlayer();
 
         game.playRound(row, col, player);
-        // button.textContent = player.mark;
         let img = document.createElement("img");
         img.src = player.mark;
 
