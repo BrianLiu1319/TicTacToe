@@ -38,7 +38,9 @@ function GameBoard() {
       console.log(tempboard);
     }
 
-    return {printBoard, placeMark};
+    const getBoard = () => board;
+
+    return {printBoard, placeMark, getBoard};
     
 }
 
@@ -60,11 +62,11 @@ function Cell(){
 function GamePlay() {
   const player1 = {
     name: "player1",
-    mark: "x"
+    mark: "./imgs/xSVG.svg"
   }
   const player2 = {
     name: "player2",
-    mark: "o"
+    mark: "./imgs/oSVG.svg"
   }
   const players = [player1, player2];
 
@@ -88,17 +90,45 @@ function GamePlay() {
   const playRound = (row, col, player) => {
     board.placeMark(row, col, player);
     swapPlayer();
+    checkWin();
   }
 
-  // print board
-  // check for winner
-  // swap player
-  swapPlayer();
+  const checkWin = () => {
+    let currBoard = board.getBoard();
+    let row = currBoard[0].length;
+    let col = currBoard.length;
+
+
+
+    // check rows
+    for(let i = 0; i < row; i++){
+      if(currBoard[i][0] == currBoard[i][1] && currBoard[i][0] == currBoard[i][2]){
+        console.log("win!");
+      }
+    }    
+    // check cols
+    for(let i = 0; i < col; i++){
+      if(currBoard[0][i] == currBoard[1][i] && currBoard[0][i] == currBoard[2][i]){
+        console.log("win!");
+
+      }
+    }    
+
+    //check diag
+    if (currBoard[0][0] == currBoard[1][1] && currBoard[0][0] == currBoard[2][2]){
+      console.log("win!");
+    }
+    if (currBoard[0][2] == currBoard[1][1] && currBoard[0][2] == currBoard[2][0]){
+      console.log("win!");
+    }
+
+  }
 
   return {playRound,
     swapPlayer,
     getActivePlayer,
-    getBoard
+    getBoard,
+    checkWin
   };
 }
 
@@ -127,7 +157,11 @@ function ScreenController() {
         let player = game.getActivePlayer();
 
         game.playRound(row,col,player);
-        button.textContent = player.mark;
+        // button.textContent = player.mark;
+        let img = document.createElement('img');
+        img.src = player.mark;
+
+        button.appendChild(img);
       });
 
       divRow.appendChild(button);

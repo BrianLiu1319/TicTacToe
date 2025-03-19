@@ -1,17 +1,14 @@
-.container{
-    display: flex;
-}
 
+.board {
+    display: grid;
+    grid-template-rows: repeat(3, 200px)
+}
 button{
-	background: blue;
 	color: inherit;
-	padding: 10px;
+    text-align: center;
     border: none;
-}
-
-div {
-    padding : 0px;
-    margin: 0px;
+    overflow: hidden;
+    outline: none;
 }
 
 button[row="0"] {
@@ -29,3 +26,21 @@ button[col="0"] {
 button[col="1"] {
     border-right: solid black;
 }
+
+button {
+    font-size: 2rem;
+    box-sizing: border-box;
+}
+
+.row{
+    display: grid;
+    grid-template-columns: repeat(3, 200px)
+}
+
+
+button {
+    display: flex;
+}
+
+
+
